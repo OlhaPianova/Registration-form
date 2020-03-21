@@ -1,11 +1,12 @@
 #include "Registration.h"
 #include <iostream>
 #include <list>
+#include<string>
 #include <fstream>
 using namespace std;
 #define CLEAR system("cls");
-string Login = 0;
-string Password = 0;
+string Login = "";
+string Password = "";
 void addNewUser(list<Form> Users){
 	Form newUser;
 	CLEAR;
@@ -49,8 +50,7 @@ void addNewUser(list<Form> Users){
 	cout << "New user successfully added! " << endl;
 }
 void log_in(list<Form> Users){
-	for (Form item : Users) {
-		do {
+
 			CLEAR;
 			cout << "\n\t\tEnter login: \n\n";
 			cout << "(latin letters, numbers, '_')" << endl;
@@ -59,19 +59,15 @@ void log_in(list<Form> Users){
 			cout << "\n\t\tEnter password: \n\n\n";
 			cout << "(latin letters, numbers, '_')" << endl;
 			cin >> Password;
-
-			if (Login != item.login || Password != item.password) {
-				cout << "Error: incorrect login or password! Try again: " << endl;
+			for (Form item : Users) {
+				if (Login == item.login && Password == item.password) {
+					cout << "\n\n\t\t\tHi! " << item.name << endl;
+				}
+				else {
+					cout << "Error: incorrect login or password! Try again: " << endl;
+				}
 			}
-
-		} while (Login != item.login&&Password != item.password);
 	}
-	for (Form item : Users) {
-		if (Login == item.login && Password == item.password) {
-			cout << "\n\n\t\t\tHi! " << item.name << endl;
-		}
-	}
-}
 void init(list<Form> Users){
 	ifstream SU;
 	SU.open("users.txt");
